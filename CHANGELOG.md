@@ -7,6 +7,7 @@
 - Fixed not being able to connect to the audio node.
 - Fixed not being able to close inquiries for people who have left the server.
 - The bot now sends an alert when a user is accepted onto the server.
+- Fixed purging failing when journalling is enabled.
 
 ## 5.1.0
 
