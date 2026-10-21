@@ -1,5 +1,9 @@
 ## Next (WIP)
 
+- TBA
+
+## 5.2.0
+
 - Fixed notices getting created and deleted in a loop.
 - Removed unused dependencies.
 - Fixed missing channel causing voting on verifications to fail.
