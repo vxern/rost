@@ -7,6 +7,7 @@
 - Fixed not being able to connect to the audio node.
 - The bot now registers who was responsible for a given moderation action.
 - The bot now sends an alert when a user is accepted onto the server.
+- Fixed purging failing when journalling is enabled.
 
 ## 5.1.0
 
