@@ -20,14 +20,18 @@ const logger: EventLogger<"purgeEnd"> = (client, [member, channel, messageCount,
 							channel: mention(channel.id, { type: "channel" }),
 						})}`,
 					},
-					{
-						type: Discord.MessageComponentTypes.Separator,
-						spacing: Discord.SeparatorSpacingSize.Large,
-					},
-					{
-						type: Discord.MessageComponentTypes.TextDisplay,
-						content: `### ${strings.fields.author}\n${client.diagnostics.user(author!)}`,
-					},
+					...(author !== undefined
+						? [
+								{
+									type: Discord.MessageComponentTypes.Separator,
+									spacing: Discord.SeparatorSpacingSize.Large,
+								} as const,
+								{
+									type: Discord.MessageComponentTypes.TextDisplay,
+									content: `### ${strings.fields.author}\n${client.diagnostics.user(author)}`,
+								} as const,
+							]
+						: []),
 				],
 			},
 		],
