@@ -1227,5 +1227,9 @@ export default Object.freeze({
 		title: localise("antiFlood.floodDetectedAndTimedOut.title", locale)(),
 		description: localise("antiFlood.floodDetectedAndTimedOut.description", locale),
 	}),
+	userAccepted: ({ localise, locale }) => ({
+		title: localise("entryRequests.userAccepted.title", locale)(),
+		description: localise("entryRequests.userAccepted.description", locale),
+	}),
 } satisfies Record<string, ContextBuilder<any>>);
 export type { ContextBuilder };

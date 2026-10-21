@@ -43,5 +43,7 @@
 	"antiFlood.floodDetectedAndTimedOut.description": "{user_mention} has been detected to be flooding the server, having posted {messages} in a span of {interval}, and has subsequently been timed out for {duration}.",
 	"antiFlood.floodDetectedAndTimedOut.description.messages.one": "{one} message",
 	"antiFlood.floodDetectedAndTimedOut.description.messages.two": "{two} messages",
-	"antiFlood.floodDetectedAndTimedOut.description.messages.many": "{many} messages"
+	"antiFlood.floodDetectedAndTimedOut.description.messages.many": "{many} messages",
+	"entryRequests.userAccepted.title": "User accepted",
+	"entryRequests.userAccepted.description": "{user_mention} has been accepted onto the server by {moderator_mention}."
 }
