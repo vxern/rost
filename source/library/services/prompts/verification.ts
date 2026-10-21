@@ -614,6 +614,25 @@ class VerificationPromptService extends PromptService<{
 				journalling: this.guildDocument.isJournalled("verification"),
 				args: [author, voter],
 			});
+
+			if (this.guildDocument.hasEnabled("alerts")) {
+				const strings = constants.contexts.userAccepted({
+					localise: this.client.localise,
+					locale: this.guildLocale,
+				});
+				await this.client.services.local("alerts", { guildId: this.guildId }).alert({
+					embeds: [
+						{
+							title: strings.title,
+							description: strings.description({
+								user_mention: mention(author.id, { type: "user" }),
+								moderator_mention: mention(voter.id, { type: "user" }),
+							}),
+							color: constants.colours.green,
+						},
+					],
+				});
+			}
 		} else if (verdict === "rejected") {
 			await authorDocument.update(this.client, () => {
 				authorDocument.setAuthorisationStatus({ guildId: this.guildIdString, status: "rejected" });
