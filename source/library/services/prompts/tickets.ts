@@ -161,8 +161,31 @@ class TicketPromptService extends PromptService<{
 			.deleteChannel(ticketDocument.channelId)
 			.catch((error) => this.log.warn(error, "Failed to delete ticket channel."));
 
-		if (ticketDocument.type === "inquiry") {
-			await this.#handleCloseInquiry(ticketDocument);
+		switch (ticketDocument.type) {
+			case "inquiry": {
+				await this.#handleCloseInquiry(ticketDocument);
+				break;
+			}
+			case "report": {
+				await this.#handleCloseReportTicket(ticketDocument);
+				break;
+			}
+		}
+	}
+
+	async #handleCloseReportTicket(ticketDocument: Ticket): Promise<void> {
+		for (const reportDocument of this.client.documents.reports.values()) {
+			if (reportDocument.guildId !== ticketDocument.guildId) {
+				continue;
+			}
+
+			if (reportDocument.ticketChannelId !== ticketDocument.channelId) {
+				continue;
+			}
+
+			await reportDocument.update(this.client, () => {
+				reportDocument.ticketChannelId = undefined;
+			});
 		}
 	}
 
@@ -201,19 +224,30 @@ class TicketPromptService extends PromptService<{
 			return undefined;
 		}
 
-		const strings = constants.contexts.inquiry({
-			localise: this.client.localise,
-			locale: this.guildLocale,
-		});
+		const strings = {
+			...constants.contexts.inquiry({
+				localise: this.client.localise,
+				locale: this.guildLocale,
+			}),
+			...constants.contexts.reportTicket({
+				localise: this.client.localise,
+				locale: this.guildLocale,
+			}),
+		};
+		const channelNameSuffix = (() => {
+			switch (type) {
+				case "standalone":
+					return formData.topic;
+				case "inquiry":
+					return strings.inquiry;
+				case "report":
+					return strings.channel;
+			}
+		})();
 		const channel = await this.client.bot.helpers
 			.createChannel(this.guildId, {
 				parentId: this.configuration.categoryId,
-				name: trim(
-					`${user.username}${constants.special.sigils.channelSeparator}${
-						type === "standalone" ? formData.topic : strings.inquiry
-					}`,
-					100,
-				),
+				name: trim(`${user.username}${constants.special.sigils.channelSeparator}${channelNameSuffix}`, 100),
 				permissionOverwrites: [
 					...categoryChannel.permissionOverwrites,
 					{ type: Discord.OverwriteTypes.Member, id: user.id, allow: ["VIEW_CHANNEL"] },
@@ -300,7 +334,8 @@ class TicketPromptService extends PromptService<{
 		});
 
 		switch (type) {
-			case "standalone": {
+			case "standalone":
+			case "report": {
 				await this.client.tryLog("ticketOpen", {
 					guildId: this.guildId,
 					journalling: this.guildDocument.isJournalled("tickets"),

@@ -1,4 +1,4 @@
-type TicketType = "standalone" | "inquiry";
+type TicketType = "standalone" | "inquiry" | "report";
 
 interface TicketFormData {
 	topic: string;

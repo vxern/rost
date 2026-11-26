@@ -7,6 +7,7 @@ interface ReportFormData {
 interface ReportDocument {
 	formData: ReportFormData;
 	isResolved: boolean;
+	ticketChannelId?: string;
 }
 
 export type { ReportDocument, ReportFormData };

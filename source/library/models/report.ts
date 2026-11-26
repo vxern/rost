@@ -25,11 +25,12 @@ class Report extends ReportModel {
 		return Number(this.idParts[2]);
 	}
 
-	constructor(database: DatabaseStore, { formData, isResolved, ...data }: CreateReportOptions) {
+	constructor(database: DatabaseStore, { formData, isResolved, ticketChannelId, ...data }: CreateReportOptions) {
 		super(database, data, { collection: "Reports" });
 
 		this.formData = formData;
 		this.isResolved = isResolved ?? false;
+		this.ticketChannelId = ticketChannelId;
 	}
 
 	static async getAll(

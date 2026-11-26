@@ -18,6 +18,7 @@ export default Object.freeze({
 		openTicket: "open_ticket",
 	},
 	createInquiry: "create_inquiry",
+	openReportTicket: "open_report_ticket",
 	removePrompt: "remove_prompt",
 	showInChat: "show_in_chat",
 	noPrompts: "no_prompts",

@@ -454,6 +454,24 @@ export default Object.freeze({
 		markResolved: localise("markResolved", locale)(),
 		markUnresolved: localise("markUnresolved", locale)(),
 		close: localise("close", locale)(),
+		openTicket: localise("reports.openTicket", locale)(),
+	}),
+	reportTicket: ({ localise, locale }) => ({
+		channel: localise("reports.ticket.channel", locale)(),
+		topic: localise("reports.ticket.topic", locale),
+		details: localise("reports.ticket.details", locale)(),
+	}),
+	reportTicketFailed: ({ localise, locale }) => ({
+		title: localise("reports.ticket.failed.title", locale)(),
+		description: localise("reports.ticket.failed.description", locale)(),
+	}),
+	reportTicketAlreadyOpen: ({ localise, locale }) => ({
+		title: localise("reports.ticket.alreadyOpen.title", locale)(),
+		description: localise("reports.ticket.alreadyOpen.description", locale)(),
+	}),
+	reportTicketOpened: ({ localise, locale }) => ({
+		title: localise("reports.ticket.opened.title", locale)(),
+		description: localise("reports.ticket.opened.description", locale)(),
 	}),
 	alreadyMarkedResolved: ({ localise, locale }) => ({
 		title: localise("alreadyMarkedResolved.title", locale)(),
