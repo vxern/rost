@@ -1,6 +1,6 @@
 ## Next (WIP)
 
-- TBA
+- Removed the banned topics section from the information notice.
 
 ## 5.2.0
 
